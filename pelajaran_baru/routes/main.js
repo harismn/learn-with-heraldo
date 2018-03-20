@@ -69,7 +69,7 @@ router.post('/edit-product/:idProduct', function(req, res){
 
     Product.findByIdAndUpdate(req.params.idProduct, { $set: objProduct}, function(err, data) {
         if (err) throw err
-        res.json(data)
+        res.redirect('/products/1')
     })
 })
 
