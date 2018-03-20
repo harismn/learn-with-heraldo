@@ -57,6 +57,30 @@ router.get('/products/:page', function(req, res, next) {
         })
 })
 
+//Heraldo
+router.post('/edit-product/:idProduct', function(req, res){
+
+    let objProduct = {
+        category: req.body.category_name,
+        name: req.body.product_name,
+        price: req.body.product_price,
+        cover: faker.image.image(),
+    }
+
+    Product.findByIdAndUpdate(req.params.idProduct, { $set: objProduct}, function(err, data) {
+        if (err) throw err
+        res.redirect('/products/1')
+    })
+})
+
+router.get('/delete-product/:idProduct', function(req, res){
+   console.log(req.params.idProduct)
+    Product.remove({'_id': req.params.idProduct}, function(err){
+        if(err) throw err
+        res.json('Deleted')
+    })
+})
+
 router.get('/', function(req, res, next) {
     res.render('index')
 })
